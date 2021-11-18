@@ -1,0 +1,10 @@
+struct compare {
+    bool operator() (const pii p1, const pii p2) const {
+        int l1 = p1.second - p1.first + 1, l2 = p2.second - p2.first + 1;
+        if(l1 == l2){
+        	if(p1.first <= p2.first)return true;
+        	return false;
+	}
+	return l1 > l2;
+    }
+};

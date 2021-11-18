@@ -1,0 +1,38 @@
+const int LOG = 21;
+
+vvi Tree, lift;
+vi depth;
+
+void dfs(int node, int d=0, int par=-1){
+	depth[node] = d;
+	lift[0][node] = par;
+	for(int i=1 ; i<LOG ; ++i){
+		if(lift[i-1][node] != -1)lift[i][node] = lift[i-1][lift[i-1][node]];
+	}
+	for(int to : Tree[node]){
+		if(to != par)dfs(to, d+1, node);
+	}
+}
+
+int getLca(int u, int v){
+	if(depth[u] < depth[v])swap(u, v);
+	
+	ll diff = depth[u] - depth[v];
+	for(int i=LOG-1 ; i>=0 ; --i){
+		if(diff & (1LL << i)){
+			u = lift[i][u];
+			diff -= (1LL << i);
+		}
+	}
+	
+	if(u == v)return u;
+	
+	for(int i=LOG-1 ; i>=0 ; --i){
+		if(lift[i][u] != lift[i][v]){
+			u = lift[i][u];
+			v = lift[i][v];
+		}
+	}
+	
+	return lift[0][u];
+}

@@ -1,0 +1,31 @@
+struct BIT{
+	int N;
+	vll a;
+	
+	void init(int n){
+		a = vll(n+1, 0);
+		N = n;
+	}
+	
+	void update(int loc, ll x){
+		if(loc <= 0)return;
+		while(loc <= N){
+			a[loc] += x;
+			loc += (loc & (-loc));
+		}
+	}
+	
+	ll query(int loc){
+		ll sum=0;
+		while(loc > 0){
+			sum += a[loc];
+			loc -= (loc & (-loc));
+		}
+		return sum;
+	}
+	
+	ll query(int l, int r){
+		return query(r) - query(l-1);
+	}
+	// 1 based - indexing
+};

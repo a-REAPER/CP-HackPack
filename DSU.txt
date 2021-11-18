@@ -1,0 +1,26 @@
+struct DSU{
+	vi p;
+	int N;
+	
+	void init(int n){
+		N = n;
+		p = vi(N);
+		iota(all(p), 0);
+	}
+	
+	int get(int x){
+		return (x == p[x] ? x : p[x] = get(p[x]));
+	}
+	
+	bool unite(int x, int y){
+		x = get(x);
+		y = get(y);
+		
+		if(x != y){
+			p[x] = y;
+			return true;
+		}
+		
+		return false;
+	}
+};
