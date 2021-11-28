@@ -1,23 +1,28 @@
 struct DSU{
-	vi p;
+	vector<int> P;
+	vector<int> sz;
 	int N;
 	
 	void init(int n){
 		N = n;
-		p = vi(N);
-		iota(all(p), 0);
+		P = vector<int>(N);
+		sz = vector<int>(N, 1);
+		iota(P.begin(), P.end(), 0);
 	}
 	
-	int get(int x){
-		return (x == p[x] ? x : p[x] = get(p[x]));
+	int getRoot(int x){
+		return (x == P[x] ? x : P[x] = getRoot(P[x]));
 	}
 	
 	bool unite(int x, int y){
-		x = get(x);
-		y = get(y);
+		x = getRoot(x);
+		y = getRoot(y);
+		
+		if(sz[x] < sz[y])swap(x, y);
 		
 		if(x != y){
-			p[x] = y;
+			P[y] = x;
+			sz[x] += sz[y];
 			return true;
 		}
 		
