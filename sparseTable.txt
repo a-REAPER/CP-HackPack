@@ -7,11 +7,11 @@ for (int i = 2; i <= mxN; i++){
 }
 
 struct RMQ{
-	vvll v;
+	vector<vector<long long> > v;
 	
-	void precompute(ll n, vll a){
-		ll K = lg2[mxN] + 1;
-		v = vvll(mxN, vll(K));
+	void precompute(long long n, vector<long long> a){
+		long long K = lg2[mxN] + 1;
+		v = vector<vector<long long> >(mxN, vector<long long>(K));
 		
 		for(int i=0 ; i<n ; ++i){
 			v[i][0] = a[i];
@@ -24,9 +24,9 @@ struct RMQ{
 		}
 	}
 	
-	ll getMin(ll l, ll r){
-		ll j = lg2[r - l + 1];
-		ll mn = min(v[l][j], v[r - (1 << j) + 1][j]);
+	long long getMin(long long l, long long r){
+		long long j = lg2[r - l + 1];
+		long long mn = min(v[l][j], v[r - (1 << j) + 1][j]);
 		
 		return mn;
 	}
