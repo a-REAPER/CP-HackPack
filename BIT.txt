@@ -8,18 +8,18 @@ struct BIT{
 	}
 	
 	void update(int loc, long long x){
-		if(loc <= 0)return;
-		while(loc <= N){
+		if(loc < 0)return;
+		while(loc < N){
 			A[loc] += x;
-			loc += (loc & (-loc));
+			loc |= (loc + 1);
 		}
 	}
 	
 	long long query(int loc){
 		long long sum=0;
-		while(loc > 0){
+		while(loc >= 0){
 			sum += A[loc];
-			loc -= (loc & (-loc));
+			loc = (loc & (loc+1)) - 1;
 		}
 		return sum;
 	}
@@ -27,5 +27,5 @@ struct BIT{
 	long long query(int L, int R){
 		return query(L) - query(R-1);
 	}
-	// 1 based - indexing
+	// 0 based - indexing
 };
