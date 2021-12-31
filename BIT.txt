@@ -3,8 +3,8 @@ struct BIT{
 	vector<long long> A;
 	
 	void init(int n){
-		N = n;
-		A = vector<long long>(N+1, 0);
+		N = n + 1;
+		A = vector<long long>(N, 0);
 	}
 	
 	void update(int loc, long long x){
