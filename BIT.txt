@@ -25,6 +25,6 @@ struct BIT{
 	}
 	
 	long long query(int L, int R){
-		return query(L) - (R-1 >= 0 ? query(R-1) : 0);
+		return query(R) - query(L-1);
 	}
 };
