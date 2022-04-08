@@ -16,7 +16,6 @@ struct RMQ{
 	
 	void precompute(int N, const vector<int> &A){
 		int K = lg2[N] + 1;
-		debug(K);
 		V = vector<vector<int> > (K, vector<int>(N+1));
 		for(int j=0 ; j<N ; ++j)V[0][j] = A[j];
 		for(int i=1 ; i<K ; ++i){
