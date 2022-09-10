@@ -8,18 +8,18 @@ int add(int a, int b){
 }
  
 void build() {  // build the tree
-  for (int i = N - 1; i > 0; --i) T[i] = max(T[i<<1], T[i<<1|1]);
+  for (int i = N - 1; i > 0; --i) T[i] = add(T[i<<1], T[i<<1|1]);
 }
  
 void modify(int p, int value) {  // set value at position p
-  for (T[p += N] = value; p > 1; p >>= 1) T[p>>1] = max(T[p], T[p^1]);
+  for (T[p += N] = value; p > 1; p >>= 1) T[p>>1] = add(T[p], T[p^1]);
 }
  
 int query(int l, int r) {  // sum on interval [l, r)
   int res = 0;
   for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-    if (l&1) res = max(res, T[l++]);
-    if (r&1) res = max(res, T[--r]);
+    if (l&1) res = add(res, T[l++]);
+    if (r&1) res = add(res, T[--r]);
   }
   return res;
 }

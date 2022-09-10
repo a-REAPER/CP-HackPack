@@ -1,0 +1,20 @@
+/*
+pi[i] -> the longest length of a substring ending in position that coincides with the prefix
+
+To find if string A(length N) is a substring of string B(length M, create a string S = A + # + B, where # is a seperator and calculate the prefix function for this string S. if(pi[i] == N) for any i after N(length of A plus the seperator excluded), then it means that A appears in B ending at position i.
+Extend the same logic to calculate all occurences of A in B, i.e. all i's where pi[i] == N will be an occurence of A
+*/
+
+vector<int> prefix_function(const vector<int> &V) {
+    int N = V.size();
+    vector<int> pi(N);
+    for (int i=1 ; i<N ; ++i) {
+        int j = pi[i-1];
+        while (j > 0 && V[i] != V[j])
+            j = pi[j-1];
+        if (V[i] == V[j])
+            ++j;
+        pi[i] = j;
+    }
+    return pi;
+}
